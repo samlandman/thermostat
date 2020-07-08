@@ -15,7 +15,6 @@ class Thermostat{
   };
 
   down() {
-    console.log(this.isMinimumTemperature)
     if (this.isMinimumTemperature()) {
       return;
       } {
@@ -27,12 +26,16 @@ class Thermostat{
     return(this._temperature === this.MINIMUM_TEMPERATURE);
   };
 
-  changeSavingMode() {
-    if (this.powerSavingMode == true) {
-      this.powerSavingMode = false;
-    } {
+  PowerSavingModeIsOn() {
+    return this.powerSavingMode === true;
+  };
+
+  turnoffSavingMode() {
+    this.powerSavingMode = false;
+  };
+
+  turnOnSavingMode() {
     this.powerSavingMode = true;
   };
-};
 
 };

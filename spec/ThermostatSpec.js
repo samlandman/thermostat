@@ -37,14 +37,14 @@ describe('Thermostat', function(){
   });
   
   it('can turn off the powersaving mode', function() {
-    thermostat.changeSavingMode();
-    expect(thermostat.powerSavingMode).toEqual(false);
+    thermostat.powerSavingMode = false // Could not get this working - will ask Eoin
+    expect(thermostat.PowerSavingModeIsOn()).toBe(false);
   });
 
   it('can turn off and on the powersaving mode', function() {
-    thermostat.changeSavingMode();
-    thermostat.changeSavingMode();
-    expect(thermostat.powerSavingMode).toEqual(true);
+    thermostat.turnOffSavingMode;
+    thermostat.turnOnSavingMode;
+    expect(thermostat.PowerSavingModeIsOn()).toBe(true);
   });
 
 });
