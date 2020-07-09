@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='src/Thermostat.js'></script>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Bootstrap -->
@@ -81,32 +82,40 @@ input:checked + .slider:before {
 }
 
 .strPSMOff {
-  padding: 50px;
   display: none;
 }
 </style>
 
 <script>
-$(document).ready(function(){
-    $(".checkboxPSM").click(function(){
-    var status = $('.myCheckbox').is(':checked');
-      console.log('switch clicked : checkbox = ' + status)
-        $(".strPSMOn").slideUp();
-        $(".strPSMOff").slideDown();
-    });
-});
 
 
 $(document).ready(function(){
+  var thermostat; 
+  thermostat = new Thermostat();
+  console.log(thermostat);
+  $('#Temperature').text(thermostat._temperature);
+  $('#up').click(function() {
+    thermostat.up();
+    $('#Temperature').text(thermostat._temperature);
+  })
+  $('#down').click(function() {
+    thermostat.down();
+    $('#Temperature').text(thermostat._temperature);
+  })
+  $('#resetTemperature').click(function() {
+    thermostat.resetTemperature();
+    $('#Temperature').text(thermostat._temperature);
+  })
+
   $('input[type="checkbox"]').click(function(){
       if($(this).prop("checked") == true){
           console.log("Checkbox is checked.");
-          $(".strPSMOn").slideUp();
+          $("#strPSMOn").slideUp();
         $(".strPSMOff").slideDown();
       }
       else if($(this).prop("checked") == false){
           console.log("Checkbox is unchecked.");
-          $(".strPSMOn").slideDown();
+          $("#strPSMOn").slideDown();
           $(".strPSMOff").slideUp();
       }
   });
@@ -123,13 +132,17 @@ $(document).ready(function(){
     </class>
 
     <div class="container">
-      <button><h4> Increase Temperature</h4></button>
-      <button><h4> Decrease Temperature</h4></button>
-      <button><h4> Reset Temperature</h4></button>    
+      <button id='up'><h4> Increase Temperature</h4></button>
+      <br></br>
+      <h1 id='Temperature'> 20C </h1> <button id='resetTemperature'><h4> Reset Temperature</h4></button>
+      <br></br>
+      <button id='down'><h4> Decrease Temperature</h4></button>
+      
+         
     </div>
     <br></br>
     <div class="container">
-      <h4> PowerSaveMode:</h4> <h4 class="strPSMOn">ON</h4><h4 class="strPSMOff">OFF</h4>
+      <h4> PowerSaveMode: <span id="strPSMOn"> ON </span> <span class="strPSMOff" >OFF</h4>
     </div>
     <!-- Rounded switch -->
     <div class="btnPSM">
