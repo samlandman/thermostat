@@ -92,34 +92,45 @@ input:checked + .slider:before {
 $(document).ready(function(){
   var thermostat; 
   thermostat = new Thermostat();
-  console.log(thermostat);
-  $('#Temperature').text(thermostat._temperature);
+  $('#chkPSM').prop('checked', true);
+  updateData();
   $('#up').click(function() {
     thermostat.up();
-    $('#Temperature').text(thermostat._temperature);
+    updateData();
   })
   $('#down').click(function() {
     thermostat.down();
-    $('#Temperature').text(thermostat._temperature);
+    updateData();
   })
   $('#resetTemperature').click(function() {
     thermostat.resetTemperature();
-    $('#Temperature').text(thermostat._temperature);
+    updateData();
   })
 
-  $('input[type="checkbox"]').click(function(){
+  $('#chkPSM').click(function(){
       if($(this).prop("checked") == true){
-          console.log("Checkbox is checked.");
-          $("#strPSMOn").slideUp();
-        $(".strPSMOff").slideDown();
-      }
-      else if($(this).prop("checked") == false){
-          console.log("Checkbox is unchecked.");
+          thermostat.turnOnSavingMode();
           $("#strPSMOn").slideDown();
           $(".strPSMOff").slideUp();
+          updateData();
+      }
+      else if($(this).prop("checked") == false){
+          thermostat.turnoffSavingMode();
+          $("#strPSMOn").slideUp();
+          $(".strPSMOff").slideDown();
+          updateData();
       }
   });
+
+  function updateData() {
+    $('#Temperature').text(thermostat._temperature);
+    $('#Usage').text(thermostat.energyUsage());
+  };
+
 });
+
+
+
 
 
 </script>
@@ -144,13 +155,15 @@ $(document).ready(function(){
     <div class="container">
       <h4> PowerSaveMode: <span id="strPSMOn"> ON </span> <span class="strPSMOff" >OFF</h4>
     </div>
-    <!-- Rounded switch -->
-    <div class="btnPSM">
+
+    <div>
       <label class="switch">
-        <input type="checkbox">
+        <input id='chkPSM' type="checkbox">
         <span class="slider round"></span>
       </label>
     </div>
+
+    <h1 id='Usage'>USAGE</h1>
 
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>

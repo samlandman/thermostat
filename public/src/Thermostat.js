@@ -35,9 +35,9 @@ class Thermostat{
 
   isMaximumTemperature() {
     if (this.PowerSavingModeIsOn() === false) {
-      return this._temperature === this.MAX_LIMIT_PSM_OFF ;
+      return this._temperature >= this.MAX_LIMIT_PSM_OFF ;
     }
-    return this._temperature === this.MAX_LIMIT_PSM_ON;
+    return this._temperature >= this.MAX_LIMIT_PSM_ON;
   };
 
   isMinimumTemperature() {
